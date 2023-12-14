@@ -18,7 +18,7 @@ class Main extends React.Component {
 
         this.setState({ filter: 1 });
 
-        fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=matrix`)
+        fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=matrix`)
             .then(response => response.json())
             .then(data => this.setState({ movies: data.Search, loading: false }))
     }
@@ -36,7 +36,7 @@ class Main extends React.Component {
 
         if (searchText.length > 2) {
             this.setState({ loading: true });
-            fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchText}&type=${this.state.type}`)
+            fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${searchText}&type=${this.state.type}`)
                 .then(response => {
                     return response.json()
                 }
@@ -47,6 +47,9 @@ class Main extends React.Component {
                         //  if (data.Response == 'True')
                         this.setState({ movies: data.Search, loading: false })
                     }
+                }).catch(err => {
+                    console.eror(err);
+                    this.setState({ loading: false });
                 })
         }
 
